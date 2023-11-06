@@ -8,7 +8,7 @@ todoForm.addEventListener("submit", sumbitForm);
 function sumbitForm(e) {
     console.log("Sumbit event");
 
-    e.preventDefault(); // Sayfanın yenillenmesini önler
+    e.preventDefault(); // submit'in varsayılan özelliklerini önler (Sayfanın yenillenmesini önler vb.)
 }
 
     /* 1.Yöntem */ 
