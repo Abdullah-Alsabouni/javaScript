@@ -2,7 +2,7 @@
 const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo");
 const todoList = document.querySelector(".list-group");
-const firstCardBody = document.querySelector(".card-body")[0];
+const firstCardBody = document.querySelector(".card-body");
 const secondCardBody = document.querySelector(".card-body")[1];
 const filter = document.querySelector("#filter");
 const clearButton = document.querySelector("clear-todos");
@@ -18,12 +18,43 @@ function eventListener() {
 function addTodo(e) {
     const newTodo = todoInput.value.trim(); // trim metodu Inputtaki girilen string'in gereksiz boşluklarını kaldırır
 
-    addTodoUI(newTodo); 
-
-
+    if(newTodo === "") {
+    //     <div class="alert alert-danger" role="alert">
+    //     This is a danger alert—check it out!
+    //   </div>
+        showAlert("danger", "Lütfen bir todo girin...");  // (type = "danger", message = "Lütfen bir todo girin")
+    }
+    else {
+        addTodoUI(newTodo); // Arayüze todo ekle
+        showAlert("success", "Todo başarıyla eklendi...");
+    }
+    
+    
 
     e.preventDefault();
 }
+
+function showAlert(type, message) { // if koşulunda Boş bir todo gönderildiğinde Uyarı göster fonksiyonu
+    const alert = document.createElement("div");
+
+    alert.className = `alert alert-${type}`;
+
+    alert.textContent = message;
+
+   // console.log(alert); // <div class = `alert alert-danger`>Lütfen bir todo girin...</div>
+
+   firstCardBody.appendChild(alert);
+ 
+   // setTimeout 
+
+   setTimeout(function(){
+
+    alert.remove(); // Uyarıyı bir saniye sonra sil
+   },1000); // 1000 ==> 1 saniyedir
+
+
+}
+
 
 function addTodoUI(newTodo) { // Inputtaki girilen string değerinin list item(Todo-list-item) olarak ekelnecek yeni todo
 //      <li class="list-group-item d-flex justify-content-between">
@@ -52,6 +83,6 @@ function addTodoUI(newTodo) { // Inputtaki girilen string değerinin list item(T
     todoList.appendChild(listItem);
     todoInput.value = ""; // Bir Input göderildikten sonra Input alanını boşaltır
 
-    // Not : Üstteki kodları yazarak sayfayı yenillediğimizde yaptığımız değişiklikler silinir. Çünkü local Storage'da yüklemedik
+    // Not : Üstteki kodları yazarak sayfayı yenillediğimizde yaptığımız değişiklikler silinir. Çünkü local Storage'a yüklemedik
 
 }
